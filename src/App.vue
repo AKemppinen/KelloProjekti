@@ -1,26 +1,39 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <div id="nav" class="w-full flex justify-center border-b-2 border-lightgrey">
+      <router-link class="px-5 py-4 h-fit hover:text-primary text-highlight subpixel-antialiased uppercase" v-for="(link, i) in navLinks"  :key="i" :to="link.href">{{link.name}}</router-link>
+    </div>
+    <router-view></router-view>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<style>
+@import "/dist/output.css";
+</style>
 
+<script>
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  data() {
+    return {
+      navLinks: [
+        {
+          name: "Watches",
+          href: "/",
+        },
+        {
+          name: "Comparison",
+          href: "/comparison",
+        },
+        {
+          name: "About Us",
+          href: "/about-page",
+        }
+      ]
+    };
+  },
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
+
+
+
