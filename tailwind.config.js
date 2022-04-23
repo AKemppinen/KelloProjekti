@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {},
     colors: {
+      'default': '#FFFFFF',
       'primary': '#E0115F',
       'secondary': '#AAACB0',
       'highlight': '#575757',
@@ -15,7 +16,7 @@ module.exports = {
       'Default': '0px',
       // => @media (min-width: 0px) { ... }
 
-      'SD': '640px',
+      'SD': '500px',
       // => @media (min-width: 640px) { ... }
 
       'HD': '1100px',
