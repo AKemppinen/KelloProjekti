@@ -8,31 +8,26 @@ module.exports = {
       'primary': '#E0115F',
       'secondary': '#AAACB0',
       'highlight': '#575757',
+      'light-highlight': '#646464',
       'lightgrey': '#eaeaea',
       'light-card-font': '#676767',
       'reference-font': '#9a9a9a',
+      'price-border': '#fcdae7',
     },
     screens: {
       'Default': '0px',
-      // => @media (min-width: 0px) { ... }
 
-      'SD': '500px',
-      // => @media (min-width: 640px) { ... }
+      'SD': '570px',
 
       'HD': '1100px',
-      // => @media (min-width: 1100px) { ... }
 
       'FHD': '1850px',
-      // => @media (min-width: 1680px) { ... }
 
       'QHD': '2300px',
-      // => @media (min-width: 2500px) { ... }
 
       'UHD': '2800px',
-      // => @media (min-width: 3800px) { ... }
 
       'UHD+': '3500px',
-      // => @media (min-width: 3800px) { ... }
     },
   },
   plugins: [],

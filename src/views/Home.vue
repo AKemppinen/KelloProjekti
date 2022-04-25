@@ -1,38 +1,49 @@
 <template>
   <body class="text-highlight subpixel-antialiased">
   <!-- Kortin tarkastelu -->
-    <div class="z-10 fixed w-full h-full cursor-pointer" v-if="inspectCard" @click="closeFromBackground" id="inspectBackground">
-      <div class="z-20 flex mx-auto my-14 w-4/5 h-5/6 bg-default rounded-2xl overscroll-contain drop-shadow-xl block">
+    <div class="z-10 fixed w-full h-full overflow-y-auto" v-if="inspectCard" @click="closeFromBackground" id="inspectBackground">
+      <div class="z-20 HD:mx-auto HD:my-14 HD:w-fit h-5/6 bg-default HD:rounded-2xl overscroll-contain drop-shadow-xl HD:flex">
 
-        <div class="relative h-full pt-20 pb-40 w-fit text-center bg-highlight rounded-l-2xl shadow-inner">
-          <img class="h-full block object-contain" :src="require('@/assets/watchfaces/' + inspectId + '/' + inspectCardImage + '.png')" :alt="info[inspectId-1].reference">
-          <div class="absolute tracking-wide py-7 bottom-0 w-full">
+        <div class="relative h-full pt-20 pb-56 HD:w-fit text-center bg-highlight HD:rounded-l-2xl shadow-inner">
+
+          <table class="absolute top-7 text-lightgrey inset-x-0 mx-auto">
+            <tr>
+              <td class="border-r border-light-card-font w-16 cursor-pointer" :class="{'font-medium': faceIsFront}" @click="changeFaceToFront">Front</td>
+              <td class="w-16 cursor-pointer transition-transform" :class="{'font-medium': !faceIsFront}" @click="changeFaceToBack">Back</td>
+            </tr>
+          </table>
+
+          <img class="h-full block object-contain mx-auto" :src="require('@/assets/watchfaces/' + inspectId + '/' + inspectCardImage + '.png')" :alt="info[inspectId-1].reference">
+          <div class="absolute tracking-wide py-7 bottom-7 w-full">
             <h2 class="pb-2 uppercase text-2xl font-medium text-default">{{ info[inspectId-1].name }}</h2>
             <hr class="border-primary w-1/2 mx-auto my-1">
             <p class="text-xl font-medium text-default">{{ info[inspectId-1].reference }}</p>
           </div>
         </div>
 
-        <div class="capitalize mx-28 my-6">
-          <button @click="changeFace">Change face</button>
-          <table v-for="(categories, i) in inspectStatCategories" :key="i" class="table-auto text-left mb-5">
+        <div class="capitalize px-6 SD:px-12 HD:px-24 py-7 bg-default">
+          <table v-for="(categories, i) in inspectStatCategories" :key="i" class="table-auto text-left mb-5 w-full">
             <fieldset class="border px-6 pt-3 pb-5 border-lightgrey rounded-lg">
-              <legend>Test</legend>
+              <legend class="px-2">Test</legend>
               <tr v-for="(stats, i) in categories.stats" :key="i">
                 <th class="border-r w-44 border-lightgrey">{{ stats.name}}</th>
-                <td class="pl-4">{{ stats.text }}</td>
+                <td v-if="stats.name !== 'functions'" class="pl-4">{{ stats.text }}</td>
+                <ul v-if="stats.name === 'functions'" class="pl-4">
+                  <li v-for="(func, i) in stats.text" :key="i"> {{ func }}</li>
+                </ul>
               </tr>
             </fieldset>
           </table>
         </div>
 
-        <button class="absolute right-7 top-5" @click="closeInspectCard">close</button>
+        <button class="absolute p-2 right-6 top-2" @click="closeInspectCard">close</button>
+
       </div>
     </div>
     <!-- /Kortin tarkastelu -->
 
     <!-- Yleisnäkymä -->
-    <div class="flex h-full" :class="{ 'blur-sm': inspectCard}">
+    <div v-if="!isMobile || !inspectCard" class="flex min-h-screen" :class="{ 'blur-sm': inspectCard }">
       <div class="w-60 p-4 border-r border-lightgrey" v-if="!isMobile">
         <h2 class="font-medium text-xl text-primary mb-2 ml-4">Filters</h2>
         <fieldset class="w-full px-4 py-2 border border-lightgrey" v-for="(filter, i) in filters" :key="i">
@@ -44,20 +55,24 @@
         </fieldset>
       </div>
 
-      <div class="w-full grid Default:gap-y-5 HD:gap-y-10 Default:py-5 HD:py-10 leading-normal HD:px-10 FHD:px-14 QHD:px-5 UHD:px-28 Default:grid-cols-1 HD:grid-cols-2 FHD:grid-cols-3 QHD:grid-cols-4 UHD:grid-cols-5 UHD+:grid-cols-6">
+      <div class="w-full h-fit grid Default:gap-y-5 HD:gap-y-10 Default:py-5 HD:py-10 leading-normal HD:px-10 FHD:px-14 QHD:px-5 UHD:px-28 Default:grid-cols-1 HD:grid-cols-2 FHD:grid-cols-3 QHD:grid-cols-4 UHD:grid-cols-5 UHD+:grid-cols-6">
         <!-- Kortti -->
-        <div class="flex flex-nowrap card-width card-height mx-auto border-2 border-lightgrey rounded-md overflow-hidden shadow-md" v-for="item in info" :key="item.id" :id="'card'+item.id" @click="cardClick(item.id)">
+        <div class="flex cursor-pointer flex-nowrap card-width card-height mx-auto border-2 border-lightgrey rounded-md overflow-hidden shadow-md" v-for="item in info" :key="item.id" :id="'card'+item.id" @click="cardClick(item.id)">
           <div class="basis-2/5 bg-lightgrey">
             <img :src="require('@/assets/watchfaces/' + item.id + '/front.png')" :alt="item.reference">
           </div>
-          <div class="flex flex-col basis-3/5 py-3 pl-6 pr-3">
+          <div class="flex flex-col basis-3/5 py-3 pl-6 pr-4">
             <div>
-              <h2 class="text-lg uppercase font-medium text-primary">{{item.name}}</h2>
+              <h2 class="text-lg uppercase font-medium text-primary pb-0.5">{{item.name}}</h2>
               <hr class="border-lightgrey">
-              <h2 class="text-md uppercase font-medium">{{item.family}}</h2>
+              <div class="flex pt-0.5">
+                <h2 class="text-md uppercase font-medium">{{item.family}}</h2>
+                <h2 class="text- uppercase font-medium text-highlight ml-auto w-fit"> ~ {{ item.msrp }} €</h2>
+              </div>
+
             </div>
 
-            <div class="mt-auto mb-4 text-light-card-font capitalize">
+            <div class="mb-4 mt-auto text-light-card-font capitalize">
               <table class="table-auto text-left">
                 <tr>
                   <th class="border-r">Case</th>
@@ -97,6 +112,7 @@ export default {
       inspectCard: false,
       inspectId: 1,
       inspectCardImage: 'front',
+      faceIsFront: true,
       info: [
         {
           id: 1,
@@ -271,7 +287,7 @@ export default {
 
   methods: {
     onResize() {
-      this.isMobile = window.innerWidth < 1300;
+      this.isMobile = window.innerWidth < 1310;
     },
 
     cardClick(id){
@@ -323,29 +339,45 @@ export default {
             }
 
           ]
+        },
+        {
+          stats: [
+            {
+              name: 'type',
+              text: this.info[this.inspectId-1].type,
+            },
+            {
+              name: 'year',
+              text: this.info[this.inspectId-1].year,
+            },
+          ]
+        },
+        {
+          stats: [
+            {
+              name: 'functions',
+              text: this.info[this.inspectId-1].functions,
+            },
+          ]
         }
       ]
 
       /*
       id: 4,
-          back: 'open',
-          type: 'chronograph',
-          year: '2021',
-          msrp: '32900',
           functions: 'small seconds, hours, minutes, chronometer, chronograph, tachymeter'
        */
 
       this.inspectCard = true;
     },
 
-    changeFace(){
-      if(this.inspectCardImage === 'front'){
-        this.inspectCardImage = 'back';
-      } else if (this.inspectCardImage === 'back'){
-        this.inspectCardImage = 'front';
-      } else {
-        this.inspectCardImage = 'front';
-      }
+    changeFaceToBack(){
+      this.inspectCardImage = 'back';
+      this.faceIsFront = false;
+    },
+
+    changeFaceToFront(){
+      this.inspectCardImage = 'front';
+      this.faceIsFront = true;
     },
 
     closeFromBackground(event){
@@ -356,7 +388,7 @@ export default {
 
     closeInspectCard(){
       this.inspectCard = false;
-      this.inspectCardImage = 'front';
+      this.changeFaceToFront();
     }
   },
 
@@ -364,6 +396,10 @@ export default {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize);
       this.onResize();
+
+      this.info.forEach(e => {
+        e.functions = e.functions.split(',');
+      })
     })
   },
 
