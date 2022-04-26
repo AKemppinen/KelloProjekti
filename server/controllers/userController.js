@@ -61,7 +61,7 @@ exports.form = (req, res) => {
 
 // Add new user
 exports.create = (req, res) => {
-    const {brand, family, name, glass, functions} = req.body;
+    const {brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, functions} = req.body;
 
     pool.getConnection((err, connection) => {
         if (err) throw err; // not connected!
@@ -69,11 +69,11 @@ exports.create = (req, res) => {
         let searchTerms = req.body.search;
 
         // User the connection
-        connection.query('INSERT INTO watchdb SET brand = ?, family = ?, name = ?, glass = ?, functions = ?', [brand, family, name, glass, functions], (err, rows) => {
+        connection.query('INSERT INTO watchdb SET brand = ?, family = ?, name = ?, reference = ?, glass = ?, dialcolor = ?, diameter = ?, lugwidth = ?, material = ?, wr = ?, strap = ?, back = ?, type = ?, year = ?, msrp = ?, functions = ?', [brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, functions], (err, rows) => {
             // When done with the connection, release it
             connection.release();
             if (!err) {
-                res.render('add-user', {alert: 'User addedd successfully.'});
+                res.render('add-user', {alert: 'User added successfully.'});
             } else {
                 console.log(err);
             }
