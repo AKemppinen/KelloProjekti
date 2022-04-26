@@ -104,13 +104,14 @@ exports.edit = (req, res) => {
 
 // Update user
 exports.update = (req, res) => {
-    const { brand, family, name, glass, functions } = req.body;
+    const {brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, functions} = req.body;
+
 
     pool.getConnection((err, connection) => {
         if (err) throw err; // not connected!
         console.log('Connected as ID ' + connection.threadId);
         // User the connection
-        connection.query('UPDATE user SET brand = ?, family = ?, name = ?, glass = ?, functions = ? WHERE id = ?', [brand, family, name, glass, functions, req.params.id], (err, rows) => {
+        connection.query('UPDATE watchdb SET brand = ?, family = ?, name = ?, reference = ?, glass = ?, dialcolor = ?, diameter = ?, lugwidth = ?, material = ?, wr = ?, strap = ?, back = ?, type = ?, year = ?, msrp = ?, functions = ? WHERE id = ?', [brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, functions, req.params.id], (err, rows) => {
             // When done with the connection, release it
             connection.release();
             if (!err) {
@@ -140,36 +141,36 @@ exports.update = (req, res) => {
 
 // Delete user
 exports.delete = (req, res) => {
-    // pool.getConnection((err, connection) => {
-    //     if (err) throw err; // not connected!
-    //     console.log('Connected as ID ' + connection.threadId);
-    //
-    //     // User the connection
-    //     connection.query('DELETE FROM user WHERE id = ?', [req.params.id], (err, rows) => {
-    //         // When done with the connection, release it
-    //         connection.release();
-    //         if (!err) {
-    //             res.redirect('/');
-    //         } else {
-    //             console.log(err);
-    //         }
-    //         console.log('The data from user table: \n', rows);www
-    //     });
-    // });
-
     pool.getConnection((err, connection) => {
-        if (err) throw err;
-        connection.query('UPDATE user SET status = ? WHERE id = ?', ['removed', req.params.id], (err, rows) => {
-            connection.release(); // return the connection to pool
+        if (err) throw err; // not connected!
+        console.log('Connected as ID ' + connection.threadId);
+
+        // User the connection
+        connection.query('DELETE FROM watchdb WHERE id = ?', [req.params.id], (err, rows) => {
+            // When done with the connection, release it
+            connection.release();
             if (!err) {
-                let removedUser = encodeURIComponent('User successfully removed.');
-                res.redirect('/?removed=' + removedUser);
+                res.redirect('/');
             } else {
                 console.log(err);
             }
-            console.log('The data from beer table are: \n', rows);
+            console.log('The data from user table: \n', rows);
         });
     });
+
+    // pool.getConnection((err, connection) => {
+    //     if (err) throw err;
+    //     connection.query('UPDATE watchdb SET status = ? WHERE id = ?', ['removed', req.params.id], (err, rows) => {
+    //         connection.release(); // return the connection to pool
+    //         if (!err) {
+    //             let removedUser = encodeURIComponent('User successfully removed.');
+    //             res.redirect('/?removed=' + removedUser);
+    //         } else {
+    //             console.log(err);
+    //         }
+    //         console.log('The data from beer table are: \n', rows);
+    //     });
+    // });
 }
 
 // View Users
