@@ -1,9 +1,9 @@
 <template>
-  <div class="w-full md:w-2/3 lg:max-w-2xl lg:w-full sm:border-none sm:rounded-md sm:shadow-md overflow-hidden bg-lightgrey border-b border-lightgrey" @click="$emit('cardClick', watchId)">
+  <div class="w-full md:w-2/3 lg:max-w-2xl lg:w-full sm:border-none sm:rounded-md sm:shadow-md overflow-hidden bg-lightgrey border-b border-lightgrey hover:cursor-pointer ease-in duration-75 hover-103" :id="'card'+this.watchId" @click="$emit('cardClick', watchId)">
     <div class="sm:flex">
 
       <!-- Kuva -->
-      <div class="sm:shrink-0 sm:pb-6 sm:pt-2">
+      <div class="sm:shrink-0 sm:pb-6 sm:pt-2 relative">
         <img class="h-80 w-80 mx-auto object-cover sm:w-full sm:h-full sm:w-48" :src="require('@/assets/watchfaces/' + watchId + '/front.png')" :alt="watchFooterStats.Reference">
       </div>
       <!-- /Kuva -->
@@ -71,11 +71,15 @@ export default {
       Brand: String,
       Reference: String,
     }
-  },
+  }
 
 }
 </script>
 
 <style scoped>
-
+ @media only screen and (min-width: 768px) {
+   .hover-103:hover {
+     transform: scale(1.03);
+   }
+ }
 </style>

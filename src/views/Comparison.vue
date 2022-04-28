@@ -1,14 +1,14 @@
 <template>
-  <body class="text-highlight min-h-screen h-full w-screen text-xs md:text-sm lg:text-base">
   <Navbar></Navbar>
+  <body class="text-highlight h-full w-screen text-xs md:text-sm lg:text-base">
     <table v-if="comparison.length > 0" class="w-full table-fixed h-full break-words">
       <tbody>
 
       <tr v-for="(item, key) in computedComparisonArray[0]" :key="key" class="border-y border-lightgrey text-center">
-        <th class="xl:w-44 border-y border-black text-lightgrey px-2 md:px-4 bg-highlight text-left">{{ item }}</th>
+        <th class="w-20 md:w-32 lg:w-44 border-y border-black text-lightgrey px-2 md:px-4 bg-highlight text-left">{{ item }}</th>
 
         <td v-for="value in computedComparisonArray.slice(1)" :key="value" class="px-2 py-2">
-          <div class="capitalize ">
+          <div class="capitalize lg:mr-44 ">
 
             <p v-if="key !== 'id' && key !== 'functions'">{{ value[key] }}</p>
 
@@ -26,6 +26,7 @@
       </tbody>
     </table>
   </body>
+  <!--<div class="fixed h-screen bg-highlight w-20 md:w-32 lg:w-44"></div>-->
 </template>
 
 <script>

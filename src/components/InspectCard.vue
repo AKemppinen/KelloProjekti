@@ -1,10 +1,10 @@
 <template>
   <div class="2xl:fixed z-10 top-0 w-screen h-fit lg:h-screen 2xl:py-10" id="inspectBackground" @click="closeCard">
     <div class="relative lg:flex 2xl:h-full w-full 2xl:w-3/4 2xl:border 2xl:rounded-2xl border-lightgrey 2xl:mx-auto bg-default">
-      <button class="absolute z-20 top-8 right-8 text-default lg:text-highlight" @click="closeCard" id="closeButton">Close</button>
+      <button class="absolute z-20 top-8 right-8 text-default lg:text-highlight font-semibold" @click="closeCard" id="closeButton">Close</button>
       <!-- image -->
-      <figure class="bg-highlight relative w-screen lg:w-1/2 2xl:w-1/3 xl:shrink-0 2xl:rounded-l-xl">
-        <img class="h-screen 2xl:h-full pb-32 pt-8 sm:pt-16 lg:pb-56 lg:pt-24 mx-auto object-contain xl:object-cover" :src="require('@/assets/watchfaces/' + card.id + '/' + getFace + '.png')" :alt="card.Reference">
+      <figure class="bg-highlight relative w-screen lg:w-1/2 2xl:w-2/5 4xl:w-1/3 xl:shrink-0 2xl:rounded-l-xl">
+        <img class="h-screen 2xl:h-full pb-32 pt-8 sm:pt-16 lg:pb-56 lg:pt-24 mx-auto object-contain 2xl:object-cover" :src="require('@/assets/watchfaces/' + card.id + '/' + getFace + '.png')" :alt="card.Reference">
         <figcaption class="text-lightgrey">
 
           <!-- Image caption header -->
@@ -33,7 +33,13 @@
       <!-- /image -->
 
       <!-- description -->
-      <div class="my-8 h-fit capitalize md:w-2/3 2xl:w-fit lg:w-fit lg:px-10 xl:px-16 mx-4 md:mx-auto 2xl:my-6 2xl:mx-4">
+      <div class="mt-8 h-fit capitalize md:w-2/3 2xl:w-fit lg:w-fit lg:px-10 xl:px-16 mx-4 md:mx-auto 2xl:my-6 2xl:mx-4">
+
+        <button class="absolute bottom-2 left-2 p-2 rounded-full text-default">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
+          </svg>
+        </button>
 
         <!-- Category -->
         <table class="text-left mb-4 w-full" v-for="(values, key) in descriptionCard" :key="key">

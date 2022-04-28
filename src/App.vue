@@ -1,6 +1,10 @@
 <template>
   <div id="app" class="w-full text-highlight">
-    <router-view :info="info" :comparison="compare"></router-view>
+    <router-view v-slot="{ Component }" :info="info" :comparison="compare">
+      <transition name="change">
+        <component :is="Component" />
+      </transition>
+    </router-view>
   </div>
 </template>
 
