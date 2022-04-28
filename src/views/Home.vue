@@ -35,7 +35,6 @@
               </tr>
             </fieldset>
           </table>
-
         </div>
 
         <button class="absolute px-2 right-6 top-7 text-lightgrey HD:text-highlight" @click="closeInspectCard">close</button>
