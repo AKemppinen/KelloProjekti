@@ -1,5 +1,4 @@
 <template>
-  <Navbar></Navbar>
   <body class="w-full h-full">
     <div class="flex justify-center text-xs md:text-sm lg:text-base">
       <transition  name="fade-comparison">
@@ -54,7 +53,6 @@
 </template>
 
 <script>
-import Navbar from "@/components/Navbar";
 
 export default {
   name: 'ComparisonView',
@@ -87,10 +85,6 @@ export default {
         },
     ]
     }
-  },
-
-  components: {
-    Navbar,
   },
 
   computed: {

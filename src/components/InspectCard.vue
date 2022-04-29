@@ -1,5 +1,5 @@
 <template>
-  <div class="2xl:fixed z-10 top-0 w-full h-fit lg:h-screen 2xl:p-4 3xl:py-8" id="inspectBackground" @click="closeCard">
+  <div class="2xl:fixed z-10 top-0 w-full h-fit lg:h-screen 2xl:p-4" id="inspectBackground" @click="closeCard">
     <div class="relative lg:flex 2xl:h-full w-full 2xl:w-3/4 2xl:rounded-2xl 2xl:mx-auto bg-default 2xl:border border-lightgrey">
       <button class="absolute z-20 top-8 right-8 text-default lg:text-highlight font-semibold" @click="closeCard" id="closeButton">Close</button>
       <!-- image -->

@@ -2,7 +2,6 @@
   <div class="min-h-screen">
 
     <div v-if="display.body" class="min-h-screen z-0" :class="{'blur-sm' : display.inspectCard}">
-      <Navbar v-if="display.navbar" :compareIDs="compareIDs" ></Navbar>
 
       <div class="lg:flex h-full">
 
@@ -71,7 +70,6 @@
 
 <script>
 import WatchCard from "@/components/Card";
-import Navbar from "@/components/Navbar";
 import Filter from "@/components/Filter";
 import InspectCard from "@/components/InspectCard";
 
@@ -86,7 +84,6 @@ export default {
   data() {
     return {
       display: {
-        navbar: true,
         body: true,
         watchGrid: true,
         filter: false,
@@ -98,7 +95,6 @@ export default {
 
   components: {
     WatchCard,
-    Navbar,
     Filter,
     InspectCard,
   },
@@ -107,30 +103,42 @@ export default {
 
     onResize() {
       if(window.innerWidth <= 1024){
-        this.closeFilters();
+        this.closeFilters(true);
       } else {
         this.display.filter = true;
         this.display.watchGrid = true;
       }
     },
 
-    closeFilters(){
+    closeFilters(ifResize){
+      if(!ifResize) {
+        this.showNavbar();
+      }
       this.display.filter = false;
-      this.display.navbar = true;
       this.display.watchGrid = true;
     },
 
     openFilters(){
       this.display.filter = true;
-      this.display.navbar = false;
+      this.hideNavbar();
       this.display.watchGrid = false;
     },
 
+    hideNavbar(){
+      this.$emit('hideNavbar')
+    },
+
+    showNavbar(){
+      this.$emit('showNavbar')
+    },
+
     cardify(){
+      this.showNavbar()
       this.display.body = true;
     },
 
     deCardify(){
+      this.hideNavbar()
       this.display.body = false;
     },
 
@@ -139,6 +147,7 @@ export default {
     },
 
     closeInspectCard(){
+      this.showNavbar();
       this.display.inspectCard = false;
       if(!this.display.body){
         this.display.body = true

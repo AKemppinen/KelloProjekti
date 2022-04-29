@@ -1,11 +1,16 @@
 <template>
   <div id="app" class="w-full text-highlight subpixel-antialiased">
+
+    <Navbar v-if="showNav" :compareIDs="compareIds" ></Navbar>
+
     <router-view v-slot="{ Component }"
                  :info="computedInfo"
                  :comparison="compare"
                  :compareIDs="compareIds"
                  @addToCompare="addToCompare"
                  @deleteComparison="deleteCompare"
+                 @hideNavbar="hideNavbar"
+                 @showNavbar="showNavbar"
     >
       <transition name="change">
         <component :is="Component" />
@@ -14,14 +19,33 @@
   </div>
 </template>
 
-<style>
+<style scoped>
 @import "/dist/output.css";
+
+.change-enter-active {
+  transition: opacity 0.3s ease;
+}
+
+.change-leave-active {
+}
+
+.change-leave-to {
+  opacity: 50%;
+}
+
+.change-enter-from {
+  opacity: 20%;
+}
+
 </style>
 
 <script>
+import Navbar from "@/components/Navbar";
+
 export default {
   data() {
     return {
+      showNav: true,
       maxCompareLength: 3,
       compare: [],
       compareIds: [],
@@ -163,6 +187,10 @@ export default {
     }
   },
 
+  components: {
+    Navbar
+  },
+
   computed: {
     computedInfo() {
       try {
@@ -208,6 +236,14 @@ export default {
       } catch (e) {
         console.log(e)
       }
+    },
+
+    hideNavbar(){
+      this.showNav = false
+    },
+
+    showNavbar(){
+      this.showNav = true
     }
   }
 
