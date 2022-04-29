@@ -2,7 +2,7 @@
   <div class="min-h-screen">
 
     <div v-if="display.body" class="min-h-screen z-0" :class="{'blur-sm' : display.inspectCard}">
-      <Navbar v-if="display.navbar" ></Navbar>
+      <Navbar v-if="display.navbar" :compareIDs="compareIDs" ></Navbar>
 
       <div class="lg:flex h-full">
 
@@ -55,6 +55,7 @@
       <div v-if="display.inspectCard">
         <InspectCard
             :card="card"
+            :compareIDs="compareIDs"
             @closeCard="closeInspectCard"
             @cardify="cardify"
             @deCardify="deCardify"
@@ -78,7 +79,8 @@ export default {
   name: "WatchesView",
 
   props: {
-    info: Array
+    info: Array,
+    compareIDs: Array
   },
 
   data() {

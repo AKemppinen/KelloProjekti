@@ -1,7 +1,8 @@
 <template>
-  <body class="w-screen min-h-screen">
-    <Navbar></Navbar>
-    <div class="text-highlight flex justify-center text-xs md:text-sm lg:text-base">
+  <Navbar></Navbar>
+  <body class="w-full h-full">
+    <div class="flex justify-center text-xs md:text-sm lg:text-base">
+      <transition  name="fade-comparison">
       <table v-if="comparison.length > 0" class="break-words w-full md:w-fit h-fit md:h-full lg:mr-60 capitalize text-center">
         <tbody>
 
@@ -18,7 +19,7 @@
 
               <p v-if="key !== 'id' && key !== 'functions' && key !== 'brand'">{{ value[key] }}</p> <!-- Text -->
 
-              <img v-else-if="key === 'brand'" class="object-contain mx-auto w-1/2 md:w-1/3 py-1 md:py-2" :src="require('@/assets/brands/' + value.brand + '.png')" :alt="value.brand"> <!-- Brand image -->
+              <img v-else-if="key === 'brand'" class="object-contain mx-auto max-w-[60px] sm:max-w-full w-1/2 md:w-1/3 py-1 md:py-2" :src="require('@/assets/brands/' + value.brand + '.png')" :alt="value.brand"> <!-- Brand image -->
 
               <div v-else-if="key === 'id'">
                 <button class="uppercase text-sm py-1 px-4 hover:text-primary-lighter" :id="value.id" @click="deleteComparison(value.id)">Delete</button>
@@ -38,6 +39,15 @@
         <!-- /Table row -->
         </tbody>
       </table>
+
+      <!-- If no selected -->
+        <div v-else class="mt-8 w-full mx-9 md:mx-0 md:w-1/2 rounded-2xl border border-lightgrey shadow-md">
+          <h2 class="font-bold text-default text-2xl text-center bg-primary py-4 rounded-t-xl border border-primary">Nothing to see here!</h2>
+          <p class="py-8 text-center font-semibold">Go select watches in the <router-link class="text-primary hover:text-primary-lighter" to="/">”Watches”</router-link> selection.</p>
+        </div>
+      <!-- /If no selected -->
+      </transition>
+
     </div>
   </body>
   <!--<div class="fixed h-screen bg-highlight w-20 md:w-32 lg:w-44"></div>-->
@@ -112,5 +122,17 @@ export default {
       height: 0;
       width: 0;
     }
+  }
+
+  .fade-comparison-enter-active {
+    transition: opacity 0.5s ease-out;
+  }
+
+  .fade-comparison-leave-active {
+
+  }
+
+  .fade-comparison-enter-from, .fade-comparison-leave-to {
+    opacity: 30%;
   }
 </style>

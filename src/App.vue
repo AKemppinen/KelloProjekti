@@ -1,8 +1,9 @@
 <template>
-  <div id="app" class="w-full text-highlight">
+  <div id="app" class="w-full text-highlight subpixel-antialiased">
     <router-view v-slot="{ Component }"
                  :info="computedInfo"
                  :comparison="compare"
+                 :compareIDs="compareIds"
                  @addToCompare="addToCompare"
                  @deleteComparison="deleteCompare"
     >
@@ -118,7 +119,7 @@ export default {
           type: 'dress',
           year: '2018',
           msrp: '9200',
-          functions: 'recto: hours, minutes, seconds. verso: second time-zone, 24-hour display'
+          functions: 'recto: hours, recto: minutes, recto: seconds, verso: second time-zone, verso: 24-hour display'
         },
         {
           id: 6,
