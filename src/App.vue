@@ -1,6 +1,11 @@
 <template>
   <div id="app" class="w-full text-highlight">
-    <router-view v-slot="{ Component }" :info="info" :comparison="compare">
+    <router-view v-slot="{ Component }"
+                 :info="computedInfo"
+                 :comparison="compare"
+                 @addToCompare="addToCompare"
+                 @deleteComparison="deleteCompare"
+    >
       <transition name="change">
         <component :is="Component" />
       </transition>
@@ -16,71 +21,15 @@
 export default {
   data() {
     return {
-      compare: [
-        {
-          id: 1,
-          brand: 'Omega',
-          family: 'Aqua Terra',
-          name: 'aqua terra 150M "Beijing 2022"',
-          reference: '522.10.41.21.04.001',
-          glass: 'sapphire',
-          dialcolor: 'silver',
-          diameter: '41',
-          lugwidth: '20',
-          material: 'stainless steel',
-          wr: 150,
-          strap: 'stainless steel bracelet',
-          back: 'closed',
-          type: 'dress',
-          year: '2021',
-          msrp: '6500',
-          functions: 'hours, minutes, seconds, date, chronometer'
-        },
-        {
-          id: 2,
-          brand: 'Omega',
-          family: 'Speedmaster',
-          name: 'moonwatch professional',
-          reference: '310.30.42.50.01.002',
-          glass: 'sapphire',
-          dialcolor: 'black',
-          diameter: '42',
-          lugwidth: '20',
-          material: 'stainless steel',
-          wr: 50,
-          strap: 'stainless steel bracelet',
-          back: 'open',
-          type: 'chronograph',
-          year: '2021',
-          msrp: '7800',
-          functions: 'small seconds, hours, minutes, chronometer, chronograph, tachymeter'
-        },
-        {
-          id: 3,
-          brand: 'Omega',
-          family: 'Speedmaster',
-          name: 'moonwatch professional',
-          reference: '310.63.42.50.02.001',
-          glass: 'sapphire',
-          dialcolor: 'silver',
-          diameter: '42',
-          lugwidth: '20',
-          material: 'white gold',
-          wr: 50,
-          strap: 'alligator leather strap',
-          back: 'open',
-          type: 'chronograph',
-          year: '2021',
-          msrp: '32900',
-          functions: 'small seconds, hours, minutes, chronometer, chronograph, tachymeter'
-        },
-      ],
+      maxCompareLength: 3,
+      compare: [],
+      compareIds: [],
       info: [
         {
           id: 1,
-          brand: 'Omega',
-          family: 'Aqua Terra',
           name: 'aqua terra 150M "Beijing 2022"',
+          family: 'Aqua Terra',
+          brand: 'Omega',
           reference: '522.10.41.21.04.001',
           glass: 'sapphire',
           dialcolor: 'silver',
@@ -97,9 +46,9 @@ export default {
         },
         {
           id: 2,
-          brand: 'Omega',
-          family: 'Speedmaster',
           name: 'moonwatch professional',
+          family: 'Speedmaster',
+          brand: 'Omega',
           reference: '310.30.42.50.01.002',
           glass: 'sapphire',
           dialcolor: 'black',
@@ -116,9 +65,9 @@ export default {
         },
         {
           id: 3,
-          brand: 'Omega',
-          family: 'Speedmaster',
           name: 'moonwatch professional',
+          family: 'Speedmaster',
+          brand: 'Omega',
           reference: '310.63.42.50.02.001',
           glass: 'sapphire',
           dialcolor: 'silver',
@@ -135,9 +84,9 @@ export default {
         },
         {
           id: 4,
-          brand: 'Omega',
-          family: 'Seamaster',
           name: 'Seamaster Diver 300M Master',
+          family: 'Seamaster',
+          brand: 'Omega',
           reference: '210.30.42.20.04.001',
           glass: 'sapphire',
           dialcolor: 'white',
@@ -154,9 +103,9 @@ export default {
         },
         {
           id: 5,
-          brand: 'Jaeger-LeCoultre',
-          family: 'Reverso',
           name: 'Reverso Classic Large Duoface Small Seconds',
+          family: 'Reverso',
+          brand: 'Jaeger-LeCoultre',
           reference: '3848422',
           glass: 'sapphire',
           dialcolor: 'silver',
@@ -173,9 +122,9 @@ export default {
         },
         {
           id: 6,
-          brand: 'Hublot',
-          family: 'Spirit of Big Bang',
           name: 'Spirit of Big Bang Titanium',
+          family: 'Spirit of Big Bang',
+          brand: 'Hublot',
           reference: '601.NX.0173.LR',
           glass: 'sapphire',
           dialcolor: 'skeleton',
@@ -192,9 +141,9 @@ export default {
         },
         {
           id: 7,
-          brand: 'A. Lange & Söhne',
-          family: 'Tourbillon',
           name: 'Tourbograph "Pour le Mérite"',
+          family: 'Tourbillon',
+          brand: 'A. Lange & Söhne',
           reference: '702.025',
           glass: 'sapphire',
           dialcolor: 'silver',
@@ -211,7 +160,56 @@ export default {
         },
       ],
     }
+  },
+
+  computed: {
+    computedInfo() {
+      try {
+        this.info.forEach(e => {
+          if(e.id){
+            e.functions = e.functions.split(',');
+          }
+        })
+        return this.info
+      } catch (e) {
+        console.log("Known type error handled...")
+        return null
+      }
+    }
+  },
+
+  methods: {
+    addToCompare(id){
+      if(this.compare.length < this.maxCompareLength){
+        try {
+          this.info.forEach(e => {
+            if(e.id === id && !this.compareIds.includes(id)){
+              this.compareIds.push(id);
+              this.compare.push(e)
+            }
+          })
+        } catch (e) {
+          console.log(e)
+        }
+      }
+    },
+
+    deleteCompare(id){
+      try {
+        if(this.compareIds.includes(id)){
+          this.compare.forEach((e, index) => {
+            if(e.id === id){
+              this.compare.splice(index, 1);
+              this.compareIds.splice(index, 1)
+            }
+          })
+        }
+      } catch (e) {
+        console.log(e)
+      }
+    }
   }
+
 }
 
 </script>

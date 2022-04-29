@@ -1,48 +1,19 @@
 <template>
   <div class="2xl:fixed z-10 top-0 w-screen h-fit lg:h-screen 2xl:py-10" id="inspectBackground" @click="closeCard">
-    <div class="relative lg:flex 2xl:h-full w-full 2xl:w-3/4 2xl:border 2xl:rounded-2xl border-lightgrey 2xl:mx-auto bg-default">
+    <div class="relative lg:flex 2xl:h-full w-full 2xl:w-3/4 2xl:rounded-2xl 2xl:mx-auto bg-default 2xl:border border-lightgrey">
       <button class="absolute z-20 top-8 right-8 text-default lg:text-highlight font-semibold" @click="closeCard" id="closeButton">Close</button>
       <!-- image -->
-      <figure class="bg-highlight relative w-screen lg:w-1/2 2xl:w-2/5 4xl:w-1/3 xl:shrink-0 2xl:rounded-l-xl">
-        <img class="h-screen 2xl:h-full pb-32 pt-8 sm:pt-16 lg:pb-56 lg:pt-24 mx-auto object-contain 2xl:object-cover" :src="require('@/assets/watchfaces/' + card.id + '/' + getFace + '.png')" :alt="card.Reference">
-        <figcaption class="text-lightgrey">
-
-          <!-- Image caption header -->
-          <div class="absolute top-8 inset-x-0 mx-auto text-center w-fit">
-            <!-- Front-Back image selector buttons -->
-            <table>
-              <tr>
-                <td class="border-r border-light-card-font w-16 cursor-pointer" :class="{'font-medium': faceFront}" @click="changeFaceToBack">Front</td>
-                <td class="w-16 cursor-pointer transition-transform" :class="{'font-medium': !faceFront}" @click="changeFaceToFront" >Back</td>
-              </tr>
-            </table>
-            <!-- /Front-Back image selector buttons -->
-          </div>
-          <!-- /Image caption header -->
-
-          <!-- Image caption footer -->
-          <div class="absolute bottom-8 lg:bottom-16 inset-x-0 mx-auto w-2/3 text-center">
-            <h1 class="uppercase text-2xl font-medium">{{ card.name }}</h1>
-            <hr class="border-primary my-2">
-            <h4 class="text-xl font-medium">{{ card.reference }}</h4>
-          </div>
-          <!-- /Image caption footer -->
-
-        </figcaption>
-      </figure>
+      <InspectCardImage
+          class="2xl:rounded-l-xl"
+          :cardImageData="{ id: card.id, Reference: card.reference, Name: card.name }"
+      ></InspectCardImage>
       <!-- /image -->
 
       <!-- description -->
-      <div class="mt-8 h-fit capitalize md:w-2/3 2xl:w-fit lg:w-fit lg:px-10 xl:px-16 mx-4 md:mx-auto 2xl:my-6 2xl:mx-4">
-
-        <button class="absolute bottom-2 left-2 p-2 rounded-full text-default">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-            <path fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" clip-rule="evenodd" />
-          </svg>
-        </button>
+      <div class="mt-8 h-fit capitalize md:w-2/3 2xl:w-fit lg:w-fit lg:px-10 xl:px-16 mx-4 md:mx-auto 2xl:my-6 2xl:mx-4 flex flex-col">
 
         <!-- Category -->
-        <table class="text-left mb-4 w-full" v-for="(values, key) in descriptionCard" :key="key">
+        <table class="text-left mb-4 w-full order-2 xl:order-1" v-for="(values, key) in descriptionCard" :key="key">
           <fieldset class="border px-6 xl:px-10 pt-3 pb-5 border-lightgrey rounded-lg">
 
             <legend class="pl-2 text-primary font-medium">{{ key }}</legend> <!-- Name -->
@@ -54,7 +25,7 @@
                 {{ value }}
               </td>
 
-              <td v-else class="px-6 xl:px-10"> <!-- Generates a list for functions -->
+              <td v-else class="px-6 2xl:px-10"> <!-- Generates a list for functions -->
                 <ul>
                   <li v-for="funcs in value" :key="funcs">{{ funcs }}</li>
                 </ul>
@@ -63,6 +34,8 @@
             </tr>
           </fieldset>
         </table>
+
+        <button class="order-1 2xl:order-2 w-full py-4 mb-4 rounded-lg border border-lightgrey uppercase text-primary text-default font-medium text-lg bg-primary hover:bg-primary-lighter" @click="addCompareCard" >Add to compare</button>
         <!-- /Category -->
 
       </div>
@@ -73,6 +46,8 @@
 </template>
 
 <script>
+import InspectCardImage from "@/components/InspectCardImage";
+
 export default {
   name: "InspectCardComponent",
 
@@ -83,10 +58,13 @@ export default {
     }
   },
 
+  components: {
+    InspectCardImage,
+  },
+
   data() {
     return {
       isCard: true,
-      faceFront: true,
       cardifySize: 1536,
     }
   },
@@ -111,18 +89,10 @@ export default {
           "Production Year": this.card.year
         },
         Additional: {
-          "Functions": this.card.functions.split(',')
+          "Functions": this.card.functions
         }
       }
     },
-
-    getFace(){
-      if(this.faceFront){
-        return "front"
-      } else {
-        return "back"
-      }
-    }
   },
 
   methods: {
@@ -136,19 +106,15 @@ export default {
       }
     },
 
-    changeFaceToBack(){
-      this.faceFront = true
-    },
-
-    changeFaceToFront(){
-      this.faceFront = false
-    },
-
     closeCard(){
       let eti = event.target.id;
       if(eti === 'inspectBackground' || eti === 'closeButton'){
         this.$emit('closeCard')
       }
+    },
+
+    addCompareCard(){
+      this.$emit('addCompareCard', this.card.id)
     }
   },
 

@@ -31,7 +31,7 @@
 
         <!-- watch grid -->
         <transition name="slide-fade">
-          <article v-if="display.watchGrid" class="grid w-full place-items-center sm:p-4 sm:gap-4 grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 5xl:grid-cols-4 7xl:grid-cols-5 8xl:grid-cols-6 absolute top-[48px] md:top-0 md:relative">
+          <article v-if="display.watchGrid" class="grid w-full place-items-center 2xl:h-fit sm:p-4 sm:gap-4 grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 5xl:grid-cols-4 7xl:grid-cols-5 8xl:grid-cols-6 absolute top-[48px] md:top-0 md:relative">
             <!-- watch card -->
               <watch-card
                   v-for="(watch, key) in info" :key="key"
@@ -53,7 +53,13 @@
     <!-- inspect card -->
     <transition name="fade">
       <div v-if="display.inspectCard">
-        <InspectCard :card="card" @closeCard="closeInspectCard" @cardify="cardify" @deCardify="deCardify" ></InspectCard>
+        <InspectCard
+            :card="card"
+            @closeCard="closeInspectCard"
+            @cardify="cardify"
+            @deCardify="deCardify"
+            @addCompareCard="addToCompare"
+        ></InspectCard>
       </div>
     </transition>
     <!-- /inspect card -->
@@ -146,6 +152,10 @@ export default {
 
       window.scrollTo(0,0);
       this.openInspectCard();
+    },
+
+    addToCompare(id){
+      this.$emit('addToCompare', id)
     }
 
   },
@@ -181,9 +191,9 @@ export default {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.3s ease-out;
+  transition: opacity 0.2s ease-out;
 }
-.fade-enter-from, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
+.fade-enter-from, .fade-leave-to {
   opacity: 0;
 }
 

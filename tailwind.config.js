@@ -10,10 +10,9 @@ module.exports = {
       'highlight': '#575757',
       'light-highlight': '#646464',
       'lightgrey': '#eaeaea',
-      'black': '#4b4b4b',
       'light-card-font': '#676767',
       'reference-font': '#9a9a9a',
-      'price-border': '#fcdae7',
+      'primary-lighter': '#f0347b',
     },
     screens: {
       'Default': '0px',
