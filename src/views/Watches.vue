@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
 
-    <div v-if="display.body" class="min-h-screen z-0" :class="{'blur-sm' : display.inspectCard}">
+    <div v-if="display.body" class="min-h-screen" :class="{'blur-sm' : display.inspectCard}">
 
       <div class="lg:flex h-full">
 
@@ -30,7 +30,7 @@
 
         <!-- watch grid -->
         <transition name="slide-fade">
-          <article v-if="display.watchGrid" class="grid w-full place-items-center 2xl:h-fit sm:p-4 sm:gap-4 grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 5xl:grid-cols-4 7xl:grid-cols-5 8xl:grid-cols-6 absolute top-[48px] md:top-0 md:relative">
+          <article v-if="display.watchGrid" class="grid w-full place-items-center sm:h-fit sm:p-4 sm:gap-4 grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 5xl:grid-cols-4 7xl:grid-cols-5 8xl:grid-cols-6 absolute top-[48px] md:top-0 md:relative">
             <!-- watch card -->
               <watch-card
                   v-for="(watch, key) in info" :key="key"
