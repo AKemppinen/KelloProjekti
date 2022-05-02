@@ -1,6 +1,6 @@
 <template>
   <!-- image -->
-  <figure class="bg-highlight relative w-screen lg:w-1/2 2xl:w-2/5 4xl:w-1/3 xl:shrink-0 border border-highlight">
+  <figure class="bg-highlight relative w-screen lg:w-1/2 2xl:w-2/5 4xl:w-1/3 xl:shrink-0">
     <transition mode="out-in" name="faceChange">
       <img v-if="faceFront" class="h-screen 2xl:h-full pb-32 pt-8 sm:pt-16 lg:pt-10 lg:pb-36 2xl:pb-56 2xl:pt-24 mx-auto object-contain 2xl:object-cover" :src="require('@/assets/watchfaces/' + cardImageData.id + '/front.png')" :alt="cardImageData.Reference">
       <img v-else class="h-screen 2xl:h-full pb-32 pt-8 sm:pt-16 lg:pb-56 lg:pt-24 mx-auto object-contain 2xl:object-cover" :src="require('@/assets/watchfaces/' + cardImageData.id + '/back.png')" :alt="cardImageData.Reference">

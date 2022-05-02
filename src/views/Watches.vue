@@ -1,7 +1,7 @@
 <template>
   <div class="min-h-screen">
 
-    <div v-if="display.body" class="min-h-screen" :class="{'blur-sm' : display.inspectCard}">
+    <div v-if="display.body" class="min-h-screen" :class="{'blur-sm mt-[58px]' : display.inspectCard}">
 
       <div class="lg:flex h-full">
 
@@ -9,12 +9,12 @@
         <aside class="md:shrink-0">
 
           <transition name="slide-fade">
-            <Filter v-if="display.filter" @onFilterClose="closeFilters" ></Filter>
+            <Filter v-if="display.filter" :info="info" @filterList="manipulateArray" @onFilterClose="closeFilters" ></Filter>
           </transition>
 
           <!-- open filters on mobile -->
           <div v-if="!display.filter" class="lg:invisible">
-            <button class="fixed rounded-full px-8 py-4 text-default bottom-2 right-2 bg-primary z-20" @click="openFilters">
+            <button class="fixed rounded-full px-8 py-4 text-default bottom-4 right-4 bg-primary z-20" @click="openFilters">
               <div class="flex">
               <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-1 my-auto" viewBox="0 0 20 20" fill="currentColor">
                 <path d="M5 4a1 1 0 00-2 0v7.268a2 2 0 000 3.464V16a1 1 0 102 0v-1.268a2 2 0 000-3.464V4zM11 4a1 1 0 10-2 0v1.268a2 2 0 000 3.464V16a1 1 0 102 0V8.732a2 2 0 000-3.464V4zM16 3a1 1 0 011 1v7.268a2 2 0 010 3.464V16a1 1 0 11-2 0v-1.268a2 2 0 010-3.464V4a1 1 0 011-1z" />
@@ -33,7 +33,7 @@
           <article v-if="display.watchGrid" class="grid w-full place-items-center sm:h-fit sm:p-4 sm:gap-4 grid-cols-1 xl:grid-cols-2 3xl:grid-cols-3 5xl:grid-cols-4 7xl:grid-cols-5 8xl:grid-cols-6 absolute top-[48px] md:top-0 md:relative">
             <!-- watch card -->
               <watch-card
-                  v-for="(watch, key) in info" :key="key"
+                  v-for="(watch, key) in infoArray" :key="key"
                   :watch-id="watch.id"
                   :watch-header-stats="{ Name: watch.name, Family: watch.family, Price: watch.msrp }"
                   :watch-stats="{ Case: watch.material, Crystal: watch.glass, Diameter: watch.diameter}"
@@ -83,6 +83,7 @@ export default {
 
   data() {
     return {
+      filteredList: [],
       display: {
         body: true,
         watchGrid: true,
@@ -99,29 +100,43 @@ export default {
     InspectCard,
   },
 
+  computed: {
+    infoArray() {
+      if(this.filteredList.length > 0){
+        return this.filteredList
+      } else {
+        return this.info
+      }
+    }
+  },
+
   methods: {
 
     onResize() {
       if(window.innerWidth <= 1024){
-        this.closeFilters(true);
+        this.closeFilters(true)
       } else {
-        this.display.filter = true;
-        this.display.watchGrid = true;
+        this.display.filter = true
+        this.display.watchGrid = true
       }
+    },
+
+    manipulateArray(filteredArr){
+      this.filteredList = filteredArr
     },
 
     closeFilters(ifResize){
       if(!ifResize) {
-        this.showNavbar();
+        this.showNavbar()
       }
-      this.display.filter = false;
-      this.display.watchGrid = true;
+      this.display.filter = false
+      this.display.watchGrid = true
     },
 
     openFilters(){
-      this.display.filter = true;
-      this.hideNavbar();
-      this.display.watchGrid = false;
+      this.display.filter = true
+      this.hideNavbar()
+      this.display.watchGrid = false
     },
 
     hideNavbar(){
@@ -133,22 +148,21 @@ export default {
     },
 
     cardify(){
-      this.showNavbar()
-      this.display.body = true;
+      this.display.body = true
     },
 
     deCardify(){
-      this.hideNavbar()
-      this.display.body = false;
+      this.display.body = false
     },
 
     openInspectCard(){
-      this.display.inspectCard = true;
+      this.hideNavbar()
+      this.display.inspectCard = true
     },
 
     closeInspectCard(){
-      this.showNavbar();
-      this.display.inspectCard = false;
+      this.showNavbar()
+      this.display.inspectCard = false
       if(!this.display.body){
         this.display.body = true
       }
@@ -161,8 +175,8 @@ export default {
         }
       })
 
-      window.scrollTo(0,0);
-      this.openInspectCard();
+      window.scrollTo(0,0)
+      this.openInspectCard()
     },
 
     addToCompare(id){
@@ -173,13 +187,13 @@ export default {
 
   mounted() {
     this.$nextTick(() => {
-      window.addEventListener('resize', this.onResize);
+      window.addEventListener('resize', this.onResize)
       this.onResize();
     })
   },
 
   beforeUnmount() {
-    window.removeEventListener('resize', this.onResize);
+    window.removeEventListener('resize', this.onResize)
   },
 }
 

@@ -10,8 +10,8 @@
     <fieldset class="px-4 py-2 my-2  border border-lightgrey" v-for="(filter, i) in filters" :key="i">
       <legend class="font-medium">{{filter.legend}}</legend>
       <div v-for="(option, i) in filter.options" :key="i">
-        <input type="checkbox" :id="'option' + i" :name="option.name">
-        <label class="ml-2 capitalize" :for="'option' + i">{{option.name}} ({{option.amount}})</label>
+        <input class="cursor-pointer" type="checkbox" :id="'option' + i" :name="option.name" @input="handleSearch(option.name, filter.searchTerm)">
+        <label class="px-2 py-1 capitalize cursor-pointer" :for="'option' + i">{{option.name}}</label>
       </div>
     </fieldset>
   </div>
@@ -22,82 +22,140 @@
 <script>
 export default {
   name: "FilterComponent",
+
+  props: {
+    info: Array
+  },
+
   data() {
     return {
+      listSize: 0,
+      search: {
+        value: [],
+        term: ''
+      },
       filters: [
         {
-          legend: 'Case',
+          legend: 'Brand',
+          searchTerm: 'brand',
           options: [
             {
-              name: 'stainless steel',
-              amount: 4,
-              active: false,
+              name: 'Omega',
+            },
+          ]
+        },
+        {
+          legend: 'Dial-Color',
+          searchTerm: 'dialcolor',
+          options: [
+            {
+              name: 'silver',
             },
             {
-              name: 'white gold',
-              amount: 1,
-              active: false,
-            },
-            {
-              name: 'ceramic',
-              amount: 1,
-              active: false,
-            },
-            {
-              name: 'titanium',
-              amount: 1,
-              active: false,
-            },
-            {
-              name: 'resin',
-              amount: 1,
-              active: false,
-            },
-            {
-              name: 'platinum',
-              amount: 1,
-              active: false,
+              name: 'black',
             }
           ]
         },
         {
           legend: 'Diameter',
+          searchTerm: 'diameter',
           options: [
             {
-              name: '28,3 MM',
-              amount: 1,
-              active: false,
+              name: '41.00',
             },
             {
-              name: '41 MM',
-              amount: 2,
-              active: false,
-            },
-            {
-              name: '42 MM',
-              amount: 3,
-              active: false,
-            },
-            {
-              name: '45 MM',
-              amount: 1,
-              active: false,
+              name: '42.00',
             }
           ]
         },
         {
-          legend: 'Crystal',
+          legend: 'Material',
+          searchTerm: 'material',
           options: [
             {
-              name: 'Sapphire',
-              amount: 7,
-              active: false,
+              name: 'stainless steel',
+            },
+          ]
+        },
+        {
+          legend: 'Water Resitance',
+          searchTerm: 'wr',
+          options: [
+            {
+              name: '150',
+            },
+            {
+              name: '50',
             }
           ]
-        }
+        },
+        {
+          legend: 'Bracelet',
+          searchTerm: 'strap',
+          options: [
+            {
+              name: 'stainless steel bracelet',
+            },
+          ]
+        },
+        {
+          legend: 'Back',
+          searchTerm: 'back',
+          options: [
+            {
+              name: 'closed',
+            },
+            {
+              name: 'open',
+            }
+          ]
+        },
+        {
+          legend: 'Type',
+          searchTerm: 'type',
+          options: [
+            {
+              name: 'dress',
+            },
+            {
+              name: 'chronograph',
+            }
+          ]
+        },
       ],
     }
-  }
+  },
+
+  methods: {
+    handleSearch(option, term){
+
+      if(!event.target.checked){
+        this.search.value.splice(this.search.value.indexOf(option), 1)
+      } else {
+        this.search.value.push(option)
+        this.search.term = term
+      }
+
+      let filArr = this.filteredArray
+
+      if(filArr.length !== this.listSize){
+        this.listSize = filArr.length
+        this.$emit("filterList", filArr)
+      }
+    }
+  },
+
+  computed: {
+    filteredArray() {
+      if(this.search.value.length > 0){
+        return this.info.filter(item => {
+            return this.search.value.includes(item[this.search.term])
+        })
+      } else {
+        return this.info
+      }
+    }
+  },
 
 }
 </script>
