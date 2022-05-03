@@ -10,7 +10,7 @@
     <fieldset class="px-4 py-2 my-2  border border-lightgrey" v-for="(filter, i) in filters" :key="i">
       <legend class="font-medium">{{filter.legend}}</legend>
       <div v-for="(option, i) in filter.options" :key="i">
-        <input class="cursor-pointer" type="checkbox" :id="'option' + i" :name="option.name" @input="handleSearch(option.name, filter.searchTerm)">
+        <input class="cursor-pointer" type="checkbox" v-model="option.active" :id="'option' + i" :name="option.name" @change="handleSearch(option.name, filter.searchTerm)">
         <label class="px-2 py-1 capitalize cursor-pointer" :for="'option' + i">{{option.name}}</label>
       </div>
     </fieldset>
@@ -41,6 +41,7 @@ export default {
           options: [
             {
               name: 'Omega',
+              active: false,
             },
           ]
         },
@@ -50,9 +51,11 @@ export default {
           options: [
             {
               name: 'silver',
+              active: false,
             },
             {
               name: 'black',
+              active: false,
             }
           ]
         },
@@ -62,9 +65,11 @@ export default {
           options: [
             {
               name: '41.00',
+              active: false,
             },
             {
               name: '42.00',
+              active: false,
             }
           ]
         },
@@ -74,6 +79,7 @@ export default {
           options: [
             {
               name: 'stainless steel',
+              active: false,
             },
           ]
         },
@@ -83,9 +89,11 @@ export default {
           options: [
             {
               name: '150',
+              active: false,
             },
             {
               name: '50',
+              active: false,
             }
           ]
         },
@@ -95,6 +103,7 @@ export default {
           options: [
             {
               name: 'stainless steel bracelet',
+              active: false,
             },
           ]
         },
@@ -104,9 +113,11 @@ export default {
           options: [
             {
               name: 'closed',
+              active: false,
             },
             {
               name: 'open',
+              active: false,
             }
           ]
         },
@@ -116,9 +127,11 @@ export default {
           options: [
             {
               name: 'dress',
+              active: false,
             },
             {
               name: 'chronograph',
+              active: false,
             }
           ]
         },
