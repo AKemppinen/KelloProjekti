@@ -4,10 +4,6 @@ const exphbs = require('express-handlebars');
 const cors = require("cors");
 const app = express();
 const userController = require('./userController');
-const mysql = require('mysql');
-
-
-
 
 let corsOptions = {
     origin: "http://localhost:8081"

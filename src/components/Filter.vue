@@ -7,11 +7,11 @@
   </div>
 
   <div class="w-full">
-    <fieldset class="px-4 py-2 my-2  border border-lightgrey" v-for="(filter, i) in filters" :key="i">
+    <fieldset class="px-4 py-2 my-2  border border-lightgrey" v-for="(filter, key) in filters" :key="key">
       <legend class="font-medium">{{filter.legend}}</legend>
       <div v-for="(option, i) in filter.options" :key="i">
-        <input class="cursor-pointer" type="checkbox" v-model="option.active" :id="'option' + i" :name="option.name" @change="handleSearch(option.name, filter.searchTerm)">
-        <label class="px-2 py-1 capitalize cursor-pointer" :for="'option' + i">{{option.name}}</label>
+        <input class="cursor-pointer" type="checkbox" :id="'option' + key + i" :name="option.name" @change="handleSearch(option.name, filter.searchTerm)">
+        <label class="px-2 py-1 capitalize cursor-pointer" :for="'option' + key + i">{{option.name}}</label>
       </div>
     </fieldset>
   </div>
@@ -30,10 +30,7 @@ export default {
   data() {
     return {
       listSize: 0,
-      search: {
-        value: [],
-        term: ''
-      },
+      search: [],
       filters: [
         {
           legend: 'Brand',
@@ -141,16 +138,25 @@ export default {
 
   methods: {
     handleSearch(option, term){
-
       if(!event.target.checked){
-        this.search.value.splice(this.search.value.indexOf(option), 1)
+        let delIndex
+        this.search.forEach((e, i) => {
+          if(e.option === option){
+            delIndex = i;
+          }
+        })
+        if(delIndex){
+          this.search.value.splice(delIndex, 1)
+        }
       } else {
-        this.search.value.push(option)
-        this.search.term = term
+        this.search.push(
+            {
+              option: option,
+              term: term
+            }
+        )
       }
-
       let filArr = this.filteredArray
-
       if(filArr.length !== this.listSize){
         this.listSize = filArr.length
         this.$emit("filterList", filArr)
@@ -160,15 +166,22 @@ export default {
 
   computed: {
     filteredArray() {
-      if(this.search.value.length > 0){
+      if(this.search.length > 0){
         return this.info.filter(item => {
-            return this.search.value.includes(item[this.search.term])
+          let returnVal = false
+          this.search.forEach(e => {
+            if(e.option === item[e.term]){
+              returnVal = true
+            }
+          })
+          return returnVal
+          //return this.search.value.includes(item[this.search.term])
         })
       } else {
         return this.info
       }
     }
-  },
+  }
 
 }
 </script>
