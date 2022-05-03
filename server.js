@@ -19,10 +19,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // simple route
 app.get('/', userController.view);
 // set port, listen for requests
-app.post('/adduser', userController.create);
+app.post('/admin', userController.create);
 
 
-const routes = require('./server/routes/user');
+const routes = require('./server/routes/watch');
 app.use('/', routes);
 
 const PORT = process.env.PORT || 8080;
