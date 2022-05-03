@@ -9,7 +9,7 @@
         <aside class="md:shrink-0">
 
           <transition name="slide-fade">
-            <Filter v-if="display.filter" :info="info" @filterList="manipulateArray" @onFilterClose="closeFilters" ></Filter>
+            <Filter v-if="display.filter" :info="info" :filters="filters" @filterList="manipulateArray" @onFilterClose="closeFilters" ></Filter>
           </transition>
 
           <!-- open filters on mobile -->
@@ -78,7 +78,7 @@ export default {
 
   props: {
     info: Array,
-    compareIDs: Array
+    compareIDs: Array,
   },
 
   data() {
@@ -91,6 +91,108 @@ export default {
         inspectCard: false,
       },
       card: {},
+      filters: [
+        {
+          legend: 'Brand',
+          searchTerm: 'brand',
+          options: [
+            {
+              name: 'Omega',
+              active: false,
+            },
+          ]
+        },
+        {
+          legend: 'Dial-Color',
+          searchTerm: 'dialcolor',
+          options: [
+            {
+              name: 'silver',
+              active: false,
+            },
+            {
+              name: 'black',
+              active: false,
+            }
+          ]
+        },
+        {
+          legend: 'Diameter',
+          searchTerm: 'diameter',
+          options: [
+            {
+              name: '41.00',
+              active: false,
+            },
+            {
+              name: '42.00',
+              active: false,
+            }
+          ]
+        },
+        {
+          legend: 'Material',
+          searchTerm: 'material',
+          options: [
+            {
+              name: 'stainless steel',
+              active: false,
+            },
+          ]
+        },
+        {
+          legend: 'Water Resitance',
+          searchTerm: 'wr',
+          options: [
+            {
+              name: '150',
+              active: false,
+            },
+            {
+              name: '50',
+              active: false,
+            }
+          ]
+        },
+        {
+          legend: 'Bracelet',
+          searchTerm: 'strap',
+          options: [
+            {
+              name: 'stainless steel bracelet',
+              active: false,
+            },
+          ]
+        },
+        {
+          legend: 'Back',
+          searchTerm: 'back',
+          options: [
+            {
+              name: 'closed',
+              active: false,
+            },
+            {
+              name: 'open',
+              active: false,
+            }
+          ]
+        },
+        {
+          legend: 'Type',
+          searchTerm: 'type',
+          options: [
+            {
+              name: 'dress',
+              active: false,
+            },
+            {
+              name: 'chronograph',
+              active: false,
+            }
+          ]
+        },
+      ],
     }
   },
 

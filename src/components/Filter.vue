@@ -10,7 +10,7 @@
     <fieldset class="px-4 py-2 my-2  border border-lightgrey" v-for="(filter, key) in filters" :key="key">
       <legend class="font-medium">{{filter.legend}}</legend>
       <div v-for="(option, i) in filter.options" :key="i">
-        <input class="cursor-pointer" type="checkbox" :id="'option' + key + i" :name="option.name" @change="handleSearch(option.name, filter.searchTerm)">
+        <input class="cursor-pointer" type="checkbox" v-model="option.active" :id="'option' + key + i" :name="option.name" @change="handleSearch(option.name, filter.searchTerm)">
         <label class="px-2 py-1 capitalize cursor-pointer" :for="'option' + key + i">{{option.name}}</label>
       </div>
     </fieldset>
@@ -24,130 +24,27 @@ export default {
   name: "FilterComponent",
 
   props: {
-    info: Array
+    info: Array,
+    filters: Array
   },
 
   data() {
     return {
       listSize: 0,
       search: [],
-      filters: [
-        {
-          legend: 'Brand',
-          searchTerm: 'brand',
-          options: [
-            {
-              name: 'Omega',
-              active: false,
-            },
-          ]
-        },
-        {
-          legend: 'Dial-Color',
-          searchTerm: 'dialcolor',
-          options: [
-            {
-              name: 'silver',
-              active: false,
-            },
-            {
-              name: 'black',
-              active: false,
-            }
-          ]
-        },
-        {
-          legend: 'Diameter',
-          searchTerm: 'diameter',
-          options: [
-            {
-              name: '41.00',
-              active: false,
-            },
-            {
-              name: '42.00',
-              active: false,
-            }
-          ]
-        },
-        {
-          legend: 'Material',
-          searchTerm: 'material',
-          options: [
-            {
-              name: 'stainless steel',
-              active: false,
-            },
-          ]
-        },
-        {
-          legend: 'Water Resitance',
-          searchTerm: 'wr',
-          options: [
-            {
-              name: '150',
-              active: false,
-            },
-            {
-              name: '50',
-              active: false,
-            }
-          ]
-        },
-        {
-          legend: 'Bracelet',
-          searchTerm: 'strap',
-          options: [
-            {
-              name: 'stainless steel bracelet',
-              active: false,
-            },
-          ]
-        },
-        {
-          legend: 'Back',
-          searchTerm: 'back',
-          options: [
-            {
-              name: 'closed',
-              active: false,
-            },
-            {
-              name: 'open',
-              active: false,
-            }
-          ]
-        },
-        {
-          legend: 'Type',
-          searchTerm: 'type',
-          options: [
-            {
-              name: 'dress',
-              active: false,
-            },
-            {
-              name: 'chronograph',
-              active: false,
-            }
-          ]
-        },
-      ],
     }
   },
 
   methods: {
     handleSearch(option, term){
       if(!event.target.checked){
-        let delIndex
+        let delIndex = 0
         this.search.forEach((e, i) => {
           if(e.option === option){
             delIndex = i;
           }
         })
-        if(delIndex){
-          this.search.value.splice(delIndex, 1)
-        }
+        this.search.splice(delIndex, 1)
       } else {
         this.search.push(
             {
