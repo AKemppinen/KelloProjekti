@@ -100,6 +100,66 @@ export default {
               name: 'Omega',
               active: false,
             },
+            {
+              name: 'Jaeger-LeCoultre',
+              active: false,
+            },
+            {
+              name: 'Hublot',
+              active: false,
+            },
+            {
+              name: 'A. Lange & Söhne',
+              active: false,
+            },
+            {
+              name: 'Patek Philippe',
+              active: false,
+            },
+            {
+              name: 'IWC',
+              active: false,
+            },
+            {
+              name: 'Zenith',
+              active: false,
+            },
+            {
+              name: 'Rolex',
+              active: false,
+            },
+            {
+              name: 'Grand Seiko',
+              active: false,
+            },
+            {
+              name: 'Certina',
+              active: false,
+            },
+            {
+              name: 'Rado',
+              active: false,
+            },
+            {
+              name: 'Longines',
+              active: false,
+            },
+            {
+              name: 'TAG Heuer',
+              active: false,
+            },
+            {
+              name: 'Tissot',
+              active: false,
+            },
+            {
+              name: 'Laco',
+              active: false,
+            },
+            {
+              name: 'Casio',
+              active: false,
+            },
           ]
         },
         {
@@ -113,7 +173,33 @@ export default {
             {
               name: 'black',
               active: false,
-            }
+            },
+            {
+              name: 'white',
+              active: false,
+            },
+            {
+              name: 'skeleton',
+              active: false,
+            },
+            {
+              name: 'blue',
+              active: false,
+            },
+          ]
+        },
+        {
+          legend: 'Back',
+          searchTerm: 'back',
+          options: [
+            {
+              name: 'open',
+              active: false,
+            },
+            {
+              name: 'closed',
+              active: false,
+            },
           ]
         },
         {
@@ -121,13 +207,91 @@ export default {
           searchTerm: 'diameter',
           options: [
             {
+              name: '28.30',
+              active: false,
+            },
+            {
+              name: '39.00',
+              active: false,
+            },
+            {
+              name: '40.00',
+              active: false,
+            },
+            {
+              name: '40.20',
+              active: false,
+            },
+            {
+              name: '40.50',
+              active: false,
+            },
+            {
               name: '41.00',
+              active: false,
+            },
+            {
+              name: '41.20',
               active: false,
             },
             {
               name: '42.00',
               active: false,
+            },
+            {
+              name: '42.30',
+              active: false,
+            },
+            {
+              name: '43.00',
+              active: false,
+            },
+            {
+              name: '43.10',
+              active: false,
+            },
+            {
+              name: '44.20',
+              active: false,
+            },
+            {
+              name: '45.00',
+              active: false,
+            },
+            {
+              name: '55.00',
+              active: false,
             }
+          ]
+        },
+        {
+          legend: 'Lug-width',
+          searchTerm: 'lugwidth',
+          options: [
+            {
+              name: '18',
+              active: false,
+            },
+            {
+              name: '19',
+              active: false,
+            },
+            {
+              name: '20',
+              active: false,
+            },
+            {
+              name: '21',
+              active: false,
+            },
+            {
+              name: '22',
+              active: false,
+            },
+            {
+              name: '23',
+              active: false,
+            },
           ]
         },
         {
@@ -138,6 +302,38 @@ export default {
               name: 'stainless steel',
               active: false,
             },
+            {
+              name: 'white gold',
+              active: false,
+            },
+            {
+              name: 'yellow gold',
+              active: false,
+            },
+            {
+              name: 'ceramic',
+              active: false,
+            },
+            {
+              name: 'titanium',
+              active: false,
+            },
+            {
+              name: 'resin',
+              active: false,
+            },
+            {
+              name: 'platinum',
+              active: false,
+            },
+            {
+              name: 'PVD Gold coating',
+              active: false,
+            },
+            {
+              name: 'ceramos',
+              active: false,
+            },
           ]
         },
         {
@@ -145,13 +341,33 @@ export default {
           searchTerm: 'wr',
           options: [
             {
-              name: '150',
+              name: '30',
               active: false,
             },
             {
               name: '50',
               active: false,
-            }
+            },
+            {
+              name: '100',
+              active: false,
+            },
+            {
+              name: '150',
+              active: false,
+            },
+            {
+              name: '200',
+              active: false,
+            },
+            {
+              name: '300',
+              active: false,
+            },
+            {
+              name: '600',
+              active: false,
+            },
           ]
         },
         {
@@ -160,6 +376,34 @@ export default {
           options: [
             {
               name: 'stainless steel bracelet',
+              active: false,
+            },
+            {
+              name: 'alligator leather strap',
+              active: false,
+            },
+            {
+              name: 'crocodile leather strap',
+              active: false,
+            },
+            {
+              name: 'rubber and alligator leather strap',
+              active: false,
+            },
+            {
+              name: 'leather strap',
+              active: false,
+            },
+            {
+              name: 'rubber strap',
+              active: false,
+            },
+            {
+              name: 'resin strap',
+              active: false,
+            },
+            {
+              name: 'oysterflex bracelet',
               active: false,
             },
           ]
@@ -189,7 +433,15 @@ export default {
             {
               name: 'chronograph',
               active: false,
-            }
+            },
+            {
+              name: 'diver',
+              active: false,
+            },
+            {
+              name: 'sport',
+              active: false,
+            },
           ]
         },
       ],

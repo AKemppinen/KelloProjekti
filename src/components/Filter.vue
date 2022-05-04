@@ -6,6 +6,17 @@
     <button class="ml-auto visible lg:invisible font-semibold" @click="$emit('onFilterClose')">Close</button>
   </div>
 
+  <div>
+    <fieldset class="px-4 py-2 my-2  border border-lightgrey">
+      <legend class="font-medium">Sort By</legend>
+      <div class="flex justify-between">
+        <button class="uppercase text-sm" :class="{'font-bold' : sortedBy.price === 1, 'font-medium' : sortedBy.price === 2}" @click="handleSort('price')">Price</button>
+        <button class="uppercase text-sm" :class="{'font-bold' : sortedBy.name === 1, 'font-medium' : sortedBy.name === 2}" @click="handleSort('name')">Name</button>
+        <button class="uppercase text-sm" :class="{'font-bold' : sortedBy.brand === 1, 'font-medium' : sortedBy.brand === 2}" @click="handleSort('brand')">Brand</button>
+      </div>
+    </fieldset>
+  </div>
+
   <div class="w-full">
     <fieldset class="px-4 py-2 my-2  border border-lightgrey" v-for="(filter, key) in filters" :key="key">
       <legend class="font-medium">{{filter.legend}}</legend>
@@ -31,6 +42,11 @@ export default {
   data() {
     return {
       listSize: 0,
+      sortedBy: {
+        brand: 0,
+        price: 0,
+        name: 0,
+      },
       search: [],
     }
   },
@@ -58,6 +74,55 @@ export default {
         this.listSize = filArr.length
         this.$emit("filterList", filArr)
       }
+    },
+
+    handleSort(type){
+
+      function compareString(a, b) {
+        if (a[type] < b[type]) {
+          return -1;
+        }
+        if (a[type] > b[type]) {
+          return 1;
+        }
+        return 0;
+      }
+
+      function compareNum(a, b) {
+        if (parseInt(a.msrp) < parseInt(b.msrp) ) {
+          return -1;
+        }
+        if (parseInt(a.msrp)  > parseInt(b.msrp) ) {
+          return 1;
+        }
+        return 0;
+      }
+
+      let sortArr = this.filteredArray
+
+      if(this.sortedBy[type] === 0 || this.sortedBy[type] === 2){
+        if(type === 'price'){
+          sortArr.sort(compareNum)
+        } else {
+          sortArr.sort(compareString)
+        }
+
+        this.resetSortedBy()
+        this.sortedBy[type] = 1
+      } else if(this.sortedBy[type] === 1){
+        sortArr = sortArr.slice().reverse()
+
+        this.resetSortedBy()
+        this.sortedBy[type] = 2
+      }
+
+      this.$emit("filterList", sortArr)
+    },
+
+    resetSortedBy(){
+      this.sortedBy.price = 0
+      this.sortedBy.brand = 0
+      this.sortedBy.name = 0
     }
   },
 
@@ -67,7 +132,7 @@ export default {
         return this.info.filter(item => {
           let returnVal = false
           this.search.forEach(e => {
-            if(e.option === item[e.term]){
+            if(item[e.term].includes(e.option)){
               returnVal = true
             }
           })
@@ -77,7 +142,7 @@ export default {
       } else {
         return this.info
       }
-    }
+    },
   }
 
 }

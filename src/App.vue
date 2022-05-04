@@ -68,14 +68,12 @@ export default {
     computedInfo() {
       try {
         this.info.forEach(e => {
-          if(e.id){
-            e.functions = e.functions.split(',');
-          }
+          e.functions = e.functions.split(',');
         })
         return this.info
       } catch (e) {
         console.log("Known type error handled...")
-        return null
+        return this.info
       }
     },
   },
