@@ -18,11 +18,13 @@ exports.view = (req, res) => {
 
         // Watch the connection
         //connection.query('SELECT * FROM watchdb WHERE status = "active"', (err, rows) => {
+        // Select all watches from the watchdb database
         connection.query('SELECT * FROM watchdb', (err, rows) => {
             // When done with the connection, release it
             connection.release();
             if (!err) {
                 let removedWatch = req.query.removed;
+                // Get data from database in a json format
                 res.json({rows});
 
             } else {
@@ -63,6 +65,7 @@ exports.form = (req, res) => {
 
 // Add new watch
 exports.create = (req, res) => {
+    // setting variables for the different values
     const {brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, movement, functions} = req.body;
 
     pool.getConnection((err, connection) => {
@@ -71,6 +74,7 @@ exports.create = (req, res) => {
         let searchTerms = req.body.search;
 
         // Watch the connection
+        // Insert given values to the sql INSERT from the variables
         connection.query('INSERT INTO watchdb SET brand = ?, family = ?, name = ?, reference = ?, glass = ?, dialcolor = ?, diameter = ?, lugwidth = ?, material = ?, wr = ?, strap = ?, back = ?, type = ?, year = ?, msrp = ?, movement = ?, functions = ?', [brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, movement, functions], (err, rows) => {
             // When done with the connection, release it
             connection.release();
@@ -107,6 +111,7 @@ exports.edit = (req, res) => {
 
 // Update watch
 exports.update = (req, res) => {
+    // setting variables for the different values
     const {brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, functions} = req.body;
 
 
@@ -114,6 +119,7 @@ exports.update = (req, res) => {
         if (err) throw err; // not connected!
         console.log('Connected as ID ' + connection.threadId);
         // Watch the connection
+        // Insert given values to the sql UPDATE from the variables
         connection.query('UPDATE watchdb SET brand = ?, family = ?, name = ?, reference = ?, glass = ?, dialcolor = ?, diameter = ?, lugwidth = ?, material = ?, wr = ?, strap = ?, back = ?, type = ?, year = ?, msrp = ?, functions = ? WHERE id = ?', [brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, functions, req.params.id], (err, rows) => {
             // When done with the connection, release it
             connection.release();

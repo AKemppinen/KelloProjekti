@@ -16,9 +16,9 @@ app.use(bodyParser.json());
 // Static Files
 //app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
-// simple route
+// route for the json file from the database
 app.get('/', userController.view);
-// set port, listen for requests
+// route for the admin page to add new watches to the database
 app.post('/admin', userController.create);
 
 
