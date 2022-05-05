@@ -96,6 +96,7 @@ exports.edit = (req, res) => {
         console.log('Connected as ID ' + connection.threadId);
 
         // Watch the connection
+        // Select all watches based on id
         connection.query('SELECT * FROM watchdb WHERE id = ?', [req.params.id], (err, rows) => {
             // When done with the connection, release it
             connection.release();
@@ -129,6 +130,7 @@ exports.update = (req, res) => {
                     if (err) throw err; // not connected!
                     console.log('Connected as ID ' + connection.threadId);
                     // Watch the connection
+                    // Select all watches based on id
                     connection.query('SELECT * FROM watchdb WHERE id = ?', [req.params.id], (err, rows) => {
                         // When done with the connection, release it
                         connection.release();
@@ -155,6 +157,7 @@ exports.delete = (req, res) => {
         console.log('Connected as ID ' + connection.threadId);
 
         // Watch the connection
+        // Delete a watch based on id
         connection.query('DELETE FROM watchdb WHERE id = ?', [req.params.id], (err, rows) => {
             // When done with the connection, release it
             connection.release();
@@ -188,6 +191,7 @@ exports.viewall = (req, res) => {
         if (err) throw err; // not connected!
         console.log('Connected as ID ' + connection.threadId);
         // Watch the connection
+        // Select all watches based on id
         connection.query('SELECT * FROM watchdb WHERE id = ?', [req.params.id], (err, rows) => {
             // When done with the connection, release it
             connection.release();
