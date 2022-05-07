@@ -24,7 +24,7 @@ exports.view = (req, res) => {
             // When done with the connection, release it
             connection.release();
             if (!err) {
-                let removedWatch = req.query.removed;
+
                 // Get data from database in a json format
                 res.json({rows});
 
@@ -37,36 +37,11 @@ exports.view = (req, res) => {
     });
 }
 
-// Find Watch by Search
-exports.find = (req, res) => {
-
-    pool.getConnection((err, connection) => {
-        if (err) throw err; // not connected!
-        console.log('Connected as ID ' + connection.threadId);
-
-        let searchTerms = req.body.search;
-
-        // Watch the connection
-        connection.query('SELECT * FROM watchdb WHERE family LIKE ? OR name LIKE ?', ['%' + searchTerms + '%', '%' + searchTerms + '%'], (err, rows) => {
-            // When done with the connection, release it
-            connection.release();
-            if (!err) {
-                res.render('home', {rows});
-            } else {
-                console.log(err);
-            }
-            console.log('The data from watch table: \n', rows);
-        });
-    });
-}
-
-
-
 exports.form = (req, res) => {
     res.render('admin');
 }
 
-// Add new watch
+// Add new watch by admin
 exports.create = (req, res) => {
     // setting variables for the different values
     const {brand, family, name, reference, glass, dialcolor, diameter, lugwidth, material, wr, strap, back, type, year, msrp, movement, functions} = req.body;

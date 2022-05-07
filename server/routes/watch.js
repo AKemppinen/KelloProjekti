@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../../watchController');
+const watchController = require('../../watchController');
 
 // view, & create for admin-site
 
-router.get('/', userController.view);
-router.get('/admin', userController.form);
-router.post('/admin', userController.create);
+router.get('/', watchController.view);
+router.get('/admin', watchController.form);
+router.post('/admin', watchController.create);
 
 module.exports = router;
