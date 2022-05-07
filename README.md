@@ -1,6 +1,13 @@
 # watchproject
 
-## Setup
+## Beware!
+
+**Adding content to the database will disrupt the web-page at it`s current state!**
+
+The rendering of images from the database is not ready and a watch from database has to have a cover image and a brand image inside assets to work.
+
+
+### Setup
 In case of dependency problems
 ```
 yarn install
@@ -35,4 +42,5 @@ node server.js
 ```
 npm run serve
 ```
+
 
