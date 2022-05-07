@@ -3,6 +3,7 @@ module.exports = {
   content: ["./src/App.vue", "./src/views/*.vue", "./src/components/*.vue" ],
   theme: {
     extend: {},
+    //Tailwind color module
     colors: {
       'default': '#FFFFFF',
       'primary': '#E0115F',
@@ -14,23 +15,9 @@ module.exports = {
       'reference-font': '#9a9a9a',
       'primary-lighter': '#f0347b',
     },
+
+    //Custom viewport size module
     screens: {
-      'Default': '0px',
-
-      'Mobile': '1310px',
-
-      'SD': '570px',
-
-      'HD': '1100px',
-
-      'FHD': '1850px',
-
-      'QHD': '2300px',
-
-      'UHD': '2800px',
-
-      'UHD+': '3500px',
-
       'sm': '540px',
       'md': '768px',
       'lg': '1025px',

@@ -20,10 +20,12 @@
 
               <img v-else-if="key === 'brand'" class="object-contain mx-auto max-w-[60px] sm:max-w-full w-1/2 md:w-1/3 py-1 md:py-2" :src="require('@/assets/brands/' + value.brand + '.png')" :alt="value.brand"> <!-- Brand image -->
 
+              <!-- Delete button -->
               <div v-else-if="key === 'id'">
                 <button class="uppercase text-sm py-1 px-4 hover:text-primary-lighter" :id="value.id" @click="deleteComparison(value.id)">Delete</button>
                 <img class="object-cover mx-auto md:mb-4 h-48 2xl:h-64" :src="require('@/assets/watchfaces/' + value.id + '/front.png')" :alt="value.reference"> <!-- Watch image -->
               </div>
+              <!-- /Delete button -->
 
               <!-- Functions list -->
               <ul v-else-if="key === 'functions'">
@@ -63,6 +65,7 @@ export default {
 
   data() {
     return {
+      //Base for setup
       comparisonArray: [
         {
           id: '',
@@ -81,6 +84,7 @@ export default {
           type: 'Type',
           year: 'Year',
           msrp: 'Price',
+          movement: 'Movement',
           functions: 'Functions'
         },
     ]
@@ -88,6 +92,7 @@ export default {
   },
 
   computed: {
+    //Computes the array with setup.
     computedComparisonArray() {
       this.setup();
       return this.comparisonArray
@@ -95,12 +100,14 @@ export default {
   },
 
   methods: {
+    //Sets the array using the base array.
     setup() {
       this.comparison.forEach(e => {
         this.comparisonArray.push(e)
       })
     },
 
+    //Deletes a watch from the comparison list and emits the change to the App
     deleteComparison(id){
       this.comparisonArray.splice(1, this.computedComparisonArray.length-1)
       this.$emit('deleteComparison', id)

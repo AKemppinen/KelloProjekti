@@ -2,9 +2,9 @@
   <div class="w-full relative leading-loose">
     <div class="my-10 sm:my-28 w-4/5 mx-auto">
       <div class="sm:flex w-full justify-around w-3/4 sm:w-2/3 mx-auto">
-        <img class="h-[67px] sm:mt-[5px] object-cover block mx-auto" :src="require('@/assets/rubyv.png')" alt="Watch">
+        <img class="h-[67px] sm:mt-[5px] object-cover block mx-auto md:my-auto" :src="require('@/assets/rubyv.png')" alt="Watch">
         <h1 class="text-7xl mt-10 sm:mb-10 subpixel-antialiased tracking-wide text-center font-bold uppercase">About Us</h1>
-        <img class="h-0 sm:h-[67px] sm:mt-[5px] invisible sm:visible object-cover sm:block mx-auto" :src="require('@/assets/rubyv.png')" alt="Watch">
+        <img class="h-0 sm:h-[67px] sm:mt-[5px] invisible sm:visible object-cover sm:block mx-auto md:my-auto" :src="require('@/assets/rubyv.png')" alt="Watch">
       </div>
       <p class="my-10">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla feugiat neque sem, nec venenatis ante volutpat vel.

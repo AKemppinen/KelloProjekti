@@ -35,8 +35,8 @@
           </fieldset>
         </table>
 
-        <button class="order-1 lg:order-2 w-full py-4 mb-4 rounded-lg border border-lightgrey uppercase text-primary text-default font-medium text-lg"
-                :class="{'bg-lightgrey cursor-auto' : !freeForCompare, 'bg-primary hover:bg-primary-lighter' : freeForCompare }"
+        <button class="order-1 lg:order-2 w-full py-4 mb-4 rounded-lg border border-lightgrey uppercase font-medium text-lg"
+                :class="{'bg-lightgrey cursor-auto text-primary' : !freeForCompare, 'bg-primary hover:bg-primary-lighter text-default' : freeForCompare }"
                 @click="addCompareCard" >
           <p v-if="freeForCompare">Add to Compare <span v-if="compareIDs.length > 0">{{compareIDs.length}}/{{maxCompareLength}}</span> </p>
           <p v-else-if="compareIDs.length >= 3"> list is full ({{compareIDs.length}}/{{maxCompareLength}})</p>
@@ -57,6 +57,8 @@ import InspectCardImage from "@/components/InspectCardImage";
 export default {
   name: "InspectCardComponent",
 
+  // Gets array of compareIDs to know if full and what watches are already added.
+  // Card id gets the card data from the clicked card from the Watches view.
   props: {
     compareIDs: Array,
     card: {
@@ -74,7 +76,7 @@ export default {
       maxCompareLength: 3,
       addedToCompare: false,
       isCard: true,
-      cardifySize: 1738,
+      cardifySize: 1738, //Screen view where the full-view changes to a card.
     }
   },
 
