@@ -5,10 +5,12 @@ const cors = require("cors");
 const app = express();
 const watchController = require('./watchController');
 
+// using Cors by port 8081 alternative
 let corsOptions = {
     origin: "http://localhost:8081"
 };
 
+// using Cors Options
 app.use(cors(corsOptions));
 // parse requests of content-type - application/json
 app.use(bodyParser.json());
@@ -25,6 +27,7 @@ app.post('/admin', watchController.create);
 const routes = require('./server/routes/watch');
 app.use('/', routes);
 
+// using port 8080 for admin-site
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}.`);

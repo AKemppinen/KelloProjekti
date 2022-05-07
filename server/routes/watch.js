@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const watchController = require('../../watchController');
 
-// view, & create for admin-site
+// router for view, form & create for admin-site
 
 router.get('/', watchController.view);
 router.get('/admin', watchController.form);

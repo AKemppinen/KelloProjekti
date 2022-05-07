@@ -19,6 +19,7 @@ app.use(bodyParser.json());
 app.use(express.static('public'));
 
 // Templating Engine
+// Using Handlebars engine (.hbs)
 app.engine('hbs', exphbs.engine( {extname: '.hbs' }));
 app.set('view engine', 'hbs');
 
@@ -40,4 +41,5 @@ pool.getConnection((err, connection) => {
 const routes = require('./server/routes/watch');
 app.use('/', routes);
 
+// App listen port for admin-site (8080)
 app.listen(port, () => console.log(`Listening on port ${port}`));
