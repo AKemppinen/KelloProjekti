@@ -1,16 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const userController = require('../../userController');
+const userController = require('../../watchController');
 
-// create, find, update delete
+// view, & create for admin-site
 
 router.get('/', userController.view);
-router.post('/', userController.find);
 router.get('/admin', userController.form);
 router.post('/admin', userController.create);
-router.get('/editwatch/:id', userController.edit);
-router.post('/editwatch/:id', userController.update);
-router.get('/viewwatch/:id', userController.viewall);
-router.get('/:id', userController.delete);
 
 module.exports = router;

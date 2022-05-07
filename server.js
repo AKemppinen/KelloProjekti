@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 const exphbs = require('express-handlebars');
 const cors = require("cors");
 const app = express();
-const userController = require('./userController');
+const watchController = require('./watchController');
 
 let corsOptions = {
     origin: "http://localhost:8081"
@@ -17,9 +17,9 @@ app.use(bodyParser.json());
 //app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 // route for the json file from the database
-app.get('/', userController.view);
+app.get('/', watchController.view);
 // route for the admin page to add new watches to the database
-app.post('/admin', userController.create);
+app.post('/admin', watchController.create);
 
 
 const routes = require('./server/routes/watch');
