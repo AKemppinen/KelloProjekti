@@ -3,6 +3,7 @@
 
     <Navbar v-if="showNav" :compareIDs="compareIds" ></Navbar>
 
+    <!-- Page loads here -->
     <router-view v-slot="{ Component }"
                  :info="computedInfo"
                  :comparison="compare"
@@ -17,6 +18,7 @@
         <component :is="Component" />
       </transition>
     </router-view>
+    <!-- /Page loads here -->
   </div>
 </template>
 
@@ -65,6 +67,8 @@ export default {
   },
 
   computed: {
+    // Modifies the info received from server by
+    // splitting the function variable into an array by comma`s
     computedInfo() {
       try {
         this.info.forEach(e => {
@@ -79,6 +83,7 @@ export default {
   },
 
   methods: {
+    // Gets the id of the watch in question and adds to compare and compareIDs.
     addToCompare(id){
       if(this.compare.length < this.maxCompareLength){
         try {
@@ -94,6 +99,7 @@ export default {
       }
     },
 
+    // Deletes the watch from compare and compareIDs by id.
     deleteCompare(id){
       try {
         if(this.compareIds.includes(id)){
@@ -109,15 +115,18 @@ export default {
       }
     },
 
+    // Hides navbar when requested to do so.
     hideNavbar(){
       this.showNav = false
     },
 
+    // Shows navbar when requested to do so.
     showNavbar(){
       this.showNav = true
     }
   },
 
+  // Gets the watch list from http://localhost:8080 node.js server.
   mounted () {
     try {
       axios

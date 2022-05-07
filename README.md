@@ -1,24 +1,38 @@
 # watchproject
 
-## Project setup
+## Setup
+In case of dependency problems
 ```
 yarn install
 ```
-
-### Compiles and hot-reloads for development
 ```
-yarn serve
+npm install expess
 ```
-
-### Compiles and minifies for production
 ```
-yarn build
+npm install body-parser
 ```
-
-### Lints and fixes files
 ```
-yarn lint
+npm install express-handlebars
+```
+```
+npm install cors
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Building
+For building the tailwind output.css
+```
+npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch
+```
+
+
+### Running
+**First** run server (port 8080)
+```
+node server.js
+```
+**Then** run website (port 8081)
+```
+npm run serve
+```
+

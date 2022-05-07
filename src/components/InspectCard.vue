@@ -81,11 +81,12 @@ export default {
   },
 
   computed : {
+    // Determines the size of comparedID:s and checks if the list is full.
     freeForCompare(){
       if(this.compareIDs.includes(this.card.id)){
         return false
       } else {
-        return !(this.compareIDs.length >= 3 || this.addedToCompare);
+        return !(this.compareIDs.length >= this.maxCompareLength || this.addedToCompare);
       }
     },
 
@@ -115,6 +116,8 @@ export default {
   },
 
   methods: {
+    // If not small device, makes inspect card into a card above content.
+    // If small device inspect card is a view.
     onResize() {
       if(window.innerWidth >= this.cardifySize && !this.isCard){
         this.$emit('cardify');
@@ -125,6 +128,7 @@ export default {
       }
     },
 
+    // Requests a close on inspect card
     closeCard(){
       let eti = event.target.id;
       if(eti === 'inspectBackground' || eti === 'closeButton'){
@@ -132,6 +136,7 @@ export default {
       }
     },
 
+    // When add to compare is clicked, emits the requested id to Watches.
     addCompareCard(){
       this.addedToCompare = true;
       this.$emit('addCompareCard', this.card.id)

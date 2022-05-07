@@ -91,6 +91,7 @@ export default {
         inspectCard: false,
       },
       card: {},
+      // Filler data for filters for the time being.
       filters: [
         {
           legend: 'Brand',
@@ -455,6 +456,7 @@ export default {
   },
 
   computed: {
+    //Determines if there is a filtered list and if not return info prop.
     infoArray() {
       if(this.filteredList.length > 0){
         return this.filteredList
@@ -466,6 +468,7 @@ export default {
 
   methods: {
 
+    // Enables always-on filters and gridifies the watchview if not mobile.
     onResize() {
       if(window.innerWidth <= 1024){
         this.closeFilters(true)
@@ -479,6 +482,8 @@ export default {
       this.filteredList = filteredArr
     },
 
+    // Close filters if the event is not from a resize
+    // also show navbar.
     closeFilters(ifResize){
       if(!ifResize) {
         this.showNavbar()
@@ -487,33 +492,40 @@ export default {
       this.display.watchGrid = true
     },
 
+    // Opens filters on smaller devices and hides navbar.
     openFilters(){
       this.display.filter = true
       this.hideNavbar()
       this.display.watchGrid = false
     },
 
+    // Asks App to hide navbar
     hideNavbar(){
       this.$emit('hideNavbar')
     },
 
+    // Asks App to show navbar
     showNavbar(){
       this.$emit('showNavbar')
     },
 
+    // Shows body under the inspect card
     cardify(){
       this.display.body = true
     },
 
+    // Hides body under the inspect view
     deCardify(){
       this.display.body = false
     },
 
+    // Opens the inspect card or view.
     openInspectCard(){
       this.hideNavbar()
       this.display.inspectCard = true
     },
 
+    // Closes the inspect card
     closeInspectCard(){
       this.showNavbar()
       this.display.inspectCard = false
@@ -522,6 +534,8 @@ export default {
       }
     },
 
+    // Gets the info of the card that has been clicked.
+    // Is triggered from inside a card.
     cardClick(id){
       this.info.forEach(e => {
         if(e.id === id){
@@ -533,12 +547,14 @@ export default {
       this.openInspectCard()
     },
 
+    // Asks App to add an id of a card to comparison.
     addToCompare(id){
       this.$emit('addToCompare', id)
     }
 
   },
 
+  // On page mount adds an event listener that acts on resize
   mounted() {
     this.$nextTick(() => {
       window.addEventListener('resize', this.onResize)
