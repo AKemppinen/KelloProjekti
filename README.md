@@ -34,7 +34,7 @@ npx tailwindcss -i ./src/input.css -o ./dist/output.css --watch
 
 
 ### Running
-**First** run server (port 8080)
+**First** run server (port 8080) 
 ```
 node server.js
 ```
@@ -42,5 +42,10 @@ node server.js
 ```
 npm run serve
 ```
+
+Main-site: http://localhost:8081/
+
+Admin-site : http://localhost:8080/admin/
+
 
 
